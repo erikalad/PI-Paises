@@ -1,0 +1,35 @@
+.country{
+    display: flex;
+    color:white;
+}
+
+.titulo-country-id{
+    display: flex;
+    flex-direction: row;
+    font-size: 25px;
+    align-items: center;
+}
+
+.img-country-id{
+    
+    width: 70px;
+    height: 70px;
+    border: none;
+    border-radius: 35px;
+    background-color: white;
+    margin-right: 15px;
+}
+
+.detalle-country-id{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.42);
+    
+}
+
+.texto-country-id{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
