@@ -3,6 +3,7 @@ const { getAllCountries, getAllCountriesFromDb } = require('../controllers/count
 const { Op } = require('sequelize');
 const { Country, Activity } = require('../db.js');
 
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -28,7 +29,7 @@ router.get('/countries', async (req, res) => {
         }
         const nameSearch = await Country.findAll({...options, include: {
             model: Activity,
-            attributes: ['id', 'nombre', 'dificultad', 'duracion', 'temporada', 'pais'],
+            attributes: ['id', 'nombre', 'dificultad', 'duracion', 'temporada'],
             through: {attributes: []},
         }})
         if(!nameSearch.length) return res.status(404).send(`El nombre '${name}' no entregó ningún resultado`)
@@ -51,7 +52,7 @@ router.get('/countries/:id', async (req, res)=>{
             },
             include:{
                 model: Activity,
-                attributes:['id', 'nombre', 'dificultad', 'duracion', 'temporada', 'pais'],
+                attributes:['id', 'nombre', 'dificultad', 'duracion', 'temporada',],
                 through: { attributes: [] },
             }
                                                 })
@@ -71,14 +72,58 @@ router.get('/countries/:id', async (req, res)=>{
   } Crea una actividad turística en la base de datos
 */
 
-router.post('/activity', async (req, res) => {
-    let { nombre, dificultad, duracion, temporada, pais } = req.body;
-    let activityCreated = await Activity.create({ nombre, dificultad, duracion, temporada, pais });
+/* router.post('/activity', async (req, res) => {
+    let { nombre, dificultad, duracion, temporada , countryId} = req.body;
+    let activityCreated = await Activity.create({ nombre, dificultad, duracion, temporada});
+    
     let countryDb = await Country.findAll({
-        where: { nombre : pais },
+        where: { nombre : countryId },
     })
     activityCreated.addCountry(countryDb);
     res.status(200).send('Actividad creada con éxito');
+}) */
+
+
+
+
+router.post('/activity', async(req, res)=> {
+    let { nombre, dificultad, duracion, temporada , countryId} = req.body;
+
+    const valdidateact = await Activity.findOne({
+      where: {
+        nombre: nombre,
+      },
+    });
+  
+    if (!valdidateact) {
+      const addAct = await Activity.create({
+        nombre: nombre,
+        dificultad: dificultad,
+        duracion: duracion,
+        temporada: temporada,
+      });
+      const countrymatch = await Country.findAll({
+        where: {
+          id: countryId,
+        },
+      });
+  
+      const resact = await addAct.addCountries(countrymatch);
+  
+      return res.send(resact);
+    }
+  
+    const countrymatch = await Country.findAll({
+      where: {
+        id: countryId,
+      },
+    });
+    // console.log(addAct)
+    // console.log(countrymatch)
+  
+    const resact = await valdidateact.addCountries(countrymatch);
+  
+    res.send(resact);
 })
 
 router.get('/activities', async (req, res) => {

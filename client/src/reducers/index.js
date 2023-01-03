@@ -58,7 +58,7 @@ function rootReducer (state = initialState, action) {
         case 'GET_ACTIVITIES':
                 return {
                     ...state,
-              
+                    activities: action.payload
                 }
         case 'FILTER_BY_POPULATION':
             const filterPopulation = action.payload === 'ascpop' ?

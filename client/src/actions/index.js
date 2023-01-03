@@ -29,7 +29,7 @@ export function getNameCountries(nombre) {
       }
 
 
-export function getActivities(id) {
+export function getActivities() {
     return async function (dispatch) {
         var info = await axios.get('http://localhost:3001/activities')
         return dispatch({

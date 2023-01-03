@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: row;
     border:1px white solid;
+    width: 100%;
 }
 
 .nav-countriesApp{
@@ -17,7 +18,7 @@
     color:white;
     text-decoration: none;
     display: flex;
-      
+    flex-wrap: wrap;
 }
 
 .nav-a{
@@ -35,7 +36,7 @@
 
 }
 
-.nav-a:active{
+.nav-a:hover{
     background-color: yellow;
 }
 
@@ -44,6 +45,42 @@
     margin-left: 70rem;
 }
 
-.nav-a[aria-current]{
-    background-color: yellow;
-}
+
+
+@media (max-width: 800px) {
+    .nav-entero{
+        display: flex;
+        flex-direction: row;
+        border:1px white solid;
+        width: 100%;
+        margin: 0px !important;
+    }
+  
+
+    .home{
+        margin-left: 0rem;
+    }
+    
+
+    .nav-a{
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        align-items: center;
+        padding-left: 20px;
+        padding-right: 20px;
+        border: none;
+        border-radius: 20px;
+        background-color: white;
+        color: black;
+        font-size: 15px;
+        cursor: pointer;
+        height: 30px;
+        margin-bottom: 5px;
+    
+    }
+
+    .nav-countriesApp{
+        padding-left: 20px;
+    }
+  }

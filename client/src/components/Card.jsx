@@ -9,8 +9,8 @@ export default function Card({ nombre , bandera, region , id, poblacion }) {
             <img className="card-img" src = { bandera }  alt = 'Imagen no encontrada' />
             <h3 className="card-title">{ nombre }</h3> 
             </div>
-            <div  className="texto-country-id"><p>Region:</p><p>{region}</p></div>
-            <div  className="texto-country-id"><p>Poblacion:</p><p>{poblacion} Hab.</p></div>
+            <div  className="texto-country-id-card"><p>Region:</p><p>{region}</p></div>
+            <div  className="texto-country-id-card"><p>Poblacion:</p><p>{poblacion} Hab.</p></div>
             <button className="boton-card"> <Link to={`/countries/${id}`}>Ver Detalle</Link></button>
         </div>
     );

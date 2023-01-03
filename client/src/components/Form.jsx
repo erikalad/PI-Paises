@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { postActivity, getNameCountries } from "../actions";
+import { postActivity, getNameCountries, getActivities } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { SmallCountry } from "./SmallCountry";
-import { Link } from "react-router-dom";
 import '../styles/Form.css'
 
 
@@ -11,10 +10,15 @@ const Form = () => {
   const [inputName, setInputName] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     setCurrentPage(0);
   }, [countries]);
+
+  useEffect (()=>{
+      dispatch(getActivities());
+  },[dispatch])
 
   const filteredC = countries.slice(currentPage, currentPage + 5);
 
@@ -23,7 +27,7 @@ const Form = () => {
     dificultad: 0,
     duracion: 0,
     temporada: "",
-    pais: [],
+    countryId: [],
   });
 
   const stateReset = () => {
@@ -32,7 +36,7 @@ const Form = () => {
       dificultad: 0,
       duracion: 0,
       temporada: "",
-      pais: [],
+      countryId: [],
     });
 
     setInputName("");
@@ -57,10 +61,10 @@ const Form = () => {
 
     setDataForm({
       ...dataForm,
-      pais: [...dataForm.pais,e.target.value],
+      countryId: dataForm.countryId.concat(e.target.value),
     });
-    console.log(dataForm.pais)
-    alert("Country Added");
+    {console.log(e.target.value)}
+    alert("Pais agregado");
   };
 
   useEffect(() => {
@@ -73,26 +77,42 @@ const Form = () => {
 
     if (dataForm["nombre"].length < 2) {
       form = false;
-    } else if (!dataForm["pais"].length >= 1) {
+    } else if (!dataForm["countryId"].length >= 1) {
       form = false;
     }
 
     if (form) {
       dispatch(postActivity(dataForm))
         .then(() => stateReset())
-        .then(() => alert("Activity added"));
+        .then(() => alert("Actividad agregada"));
     } else {
-      return alert("Please fill all the fields before creating a new activity");
+      return alert(" A tu actividad le faltan detalles");
     }
   };
 
   return (
     <div  >
+      <div className="agregar-actividad"> Agregar Actividad</div>
       <div className="form">
         <form onSubmit={(e) => submitForm(e)} className="form">
-          <div className="nombre">
-          <label>Nombre</label>
+
+        <div className="nombre">
+            <label className="titulo-form">Seleccionar Paises</label>
             <input
+              className="input-form"
+              type="text"
+              autocomplete="off"
+              placeholder="Buscá el pais"
+              onChange={submitInputName}
+    
+            />
+          </div>
+
+
+          <div className="nombre">
+          <label className="titulo-form">Nombre</label>
+            <input
+              className="input-form"
               type="text"
               autocomplete="off"
               placeholder="Nombre de la actividad"
@@ -102,128 +122,112 @@ const Form = () => {
             />
           </div>
 
-          <div >
-            <label>Seleccionar dificultad</label>
+          <div className="nombre">
+            <label className="titulo-form">Seleccionar dificultad</label>
             <select
+             className="input-form"
               name="dificultad"
               value={dataForm.dificultad}
               id="dificultad"
               onChange={setDataHandler}
             >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
+              <option className="input-form" value={1}>1</option>
+              <option className="input-form" value={2}>2</option>
+              <option className="input-form" value={3}>3</option>
+              <option className="input-form" value={4}>4</option>
+              <option className="input-form" value={5}>5</option>
             </select>
           </div>
 
-          <div>
-            <label>Duración en horas</label>
+
+
+
+          <div className="nombre">
+            <label className="titulo-form">Duración en horas</label>
             <select
+             className="input-form"
               name="duracion"
               value={dataForm.duracion}
               id="duracion"
               onChange={setDataHandler}
             >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-              <option value={11}>11</option>
-              <option value={12}>12</option>
-              <option value={13}>13</option>
-              <option value={14}>14</option>
-              <option value={15}>15</option>
-              <option value={16}>16</option>
-              <option value={17}>17</option>
-              <option value={18}>18</option>
-              <option value={19}>19</option>
-              <option value={20}>20</option>
-              <option value={21}>21</option>
-              <option value={22}>22</option>
-              <option value={23}>23</option>
-              <option value={24}>24</option>
+              <option className="input-form" value={1}>1</option>
+              <option className="input-form" value={2}>2</option>
+              <option className="input-form" value={3}>3</option>
+              <option className="input-form" value={4}>4</option>
+              <option className="input-form" value={5}>5</option>
+              <option className="input-form" value={6}>6</option>
+              <option className="input-form" value={7}>7</option>
+              <option className="input-form" value={8}>8</option>
+              <option className="input-form" value={9}>9</option>
+              <option className="input-form" value={10}>10</option>
+              <option className="input-form" value={11}>11</option>
+              <option className="input-form" value={12}>12</option>
+              <option className="input-form" value={13}>13</option>
+              <option className="input-form" value={14}>14</option>
+              <option className="input-form" value={15}>15</option>
+              <option className="input-form" value={16}>16</option>
+              <option className="input-form" value={17}>17</option>
+              <option className="input-form" value={18}>18</option>
+              <option className="input-form" value={19}>19</option>
+              <option className="input-form" value={20}>20</option>
+              <option className="input-form" value={21}>21</option>
+              <option className="input-form" value={22}>22</option>
+              <option className="input-form" value={23}>23</option>
+              <option className="input-form" value={24}>24</option>
             </select>
           </div>
 
-          <div>
-            <label>Seleccionar Temporada</label>
+          <div className="nombre">
+            <label className="titulo-form">Seleccionar Temporada</label>
             <select
+             className="input-form"
               name="temporada"
               value={dataForm.temporada}
               id="temporada"
               onChange={setDataHandler}
             >
-              <option value="Otoño">Otoño</option>
-              <option value="Primavera">Primavera</option>
-              <option value="Verano">Verano</option>
-              <option value="Invierno">Invierno</option>
+              <option className="input-form" value="Otoño">Otoño</option>
+              <option className="input-form" value="Primavera">Primavera</option>
+              <option className="input-form" value="Verano">Verano</option>
+              <option className="input-form" value="Invierno">Invierno</option>
             </select>
           </div>
-
-          <div >
-            <label>Seleccionar Paises</label>
-            <input
-        
-              type="text"
-              autocomplete="off"
-              placeholder="Buscá el pais"
-              onChange={submitInputName}
-    
-            />
-          </div>
           <div>
-            <input type="submit" value="Agregar actividad" />
+            <input className="input-form-boton" type="submit" value="Agregar actividad" />
           </div>
+        
+          
         </form>
       </div>
 
-     <div>
+     <div className="paises-elegir">
         {filteredC.length < 30
           ? filteredC.map((c) => (
               <div>
                 <div className="smallcountry">
                   <SmallCountry key={c.id} nombre={c.nombre} bandera={c.bandera} />
                   <button
+                  
                     className="boton-agregar"
                     onClick={setIdHandler}
-                    value={c.nombre}
-                    name="pais"
+                    value={c.id}
+                    name="countryId"
+                    
                   >
                     +
                   </button>
                 </div>
+                
               </div>
-            ))
+             
+            ) )
+           
           : console.log("ups")}
-      </div> 
 
-      <div>
-        {setDataForm.length > 1
-          ? setDataForm.paises.map((c) => (
-              <div>
-                <div className="smallcountry">
-                  <SmallCountry key={c.id} nombre={c.nombre} bandera={c.bandera} />
-                  <button
-                    className="boton-agregar"
-                    onClick={setIdHandler}
-                    value={c.nombre}
-                    name="pais"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-            ))
-          : console.log(setDataForm.pais)}
-      </div> 
+          
+      
+      </div>
     </div>
   );
 };

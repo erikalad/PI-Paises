@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCountries, filterCountriesByContinent, orderByName, filterByPopulation } from '../actions';
 import Card from './Card.jsx';
 import Paginado from './Paginado';
-import { Link } from 'react-router-dom';
 
 export function MenuLateral(){
     const dispatch = useDispatch();
@@ -96,16 +95,20 @@ export function MenuLateral(){
         <div>
         <div className="menu">
 
+        
          {/*----MENU LATERAL-----*/} 
-        <div>
+        <div className="menudefiltros">
+
+        <div className="menu-buscador-input">
             <p className="menu-title">Nombre del pais</p>
             <div>
-                <input type = 'text' placeholder = 'Ingrese el pais que quiere buscar' onChange={handleInputChange} />            
+                <input className="menu-buscador" type = 'text' placeholder = 'Ingrese el pais que quiere buscar' onChange={handleInputChange} />            
             </div>
-            <button onClick = {(e) => handleSubmit(e)}>BUSCAR</button>
+            <button className="boton-buscar-menu" onClick = {(e) => handleSubmit(e)}>BUSCAR</button>
         <br></br>
-        <hr></hr>
-        <div>
+       
+        </div>
+        <div className="menu-buscador-input-cont">
             <p className="menu-title">Filtro por continente</p>
         <div>
             <div className="menu-input"><input type = 'radio' checked={continent === 'All' ? true : false} onClick={e => onClickRadio(e)} onChange={e => handleFilterContinent(e)} value = 'All'/><p className="menu-p">TODOS LOS PAISES</p></div>
@@ -117,7 +120,7 @@ export function MenuLateral(){
         </div>
         </div>
 
-        <div>
+        <div className="menu-buscador-input-gral">
             <p className="menu-title">Filtros general</p>
         <div>
             <div className="menu-input"><input type = 'radio' value = 'asc' checked={order === 'asc' ? true : false}  onClick={e => onClickRadioOrder(e)} onChange={e => handleSort(e)}/><p className="menu-p">Nombres ascendente</p></div>
@@ -127,6 +130,8 @@ export function MenuLateral(){
         </div>
         </div>
         </div>
+
+
     {/*----CARDS-----*/}
     <div className="container-paises">
     
@@ -143,6 +148,7 @@ export function MenuLateral(){
 
 
           {/*----PAGINADO-----*/} 
+    
     <div className="paginado">
                 <Paginado
             countriesPerPage = { countriesPerPage }

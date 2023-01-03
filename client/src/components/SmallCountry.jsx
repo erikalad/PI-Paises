@@ -1,6 +1,10 @@
 import '../styles/SmallCountry.css'
 
+
 export const SmallCountry = ({nombre, bandera}) => {
+
+
+
 
 
     return (

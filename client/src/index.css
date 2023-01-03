@@ -17,3 +17,8 @@ code {
     monospace;
 }
 
+@media (max-width: 800px) {
+  body{
+    width: 100%
+  }
+}
