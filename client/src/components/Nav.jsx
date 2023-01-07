@@ -19,6 +19,9 @@ export function Nav(){
             <li className="nav-li">
             <Link className="nav-li nav-a" to='/actividades'>Nueva Actividad</Link>
             </li>
+            <li className="nav-li">
+            <Link className="nav-li nav-a" to='/actividades-creadas'>Actividades</Link>
+            </li>
             </ul>
             </div>
         </div>

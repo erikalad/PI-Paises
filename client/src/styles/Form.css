@@ -49,6 +49,25 @@
     font-size: 40px;
     align-items: center;
     margin-left:80px;
-    color:white
+    color:white;
+    
 }
 
+.conteiner-form-elegir{
+    display: flex;
+}
+
+input:invalid {
+    box-shadow: 0 0 5px 1px red;
+    border-color: red;
+  }
+
+option.invalid{
+    box-shadow: 0 0 5px 1px red;
+    border-color: red;
+  }
+
+
+::placeholder {
+ padding-left: 6px;
+  }

@@ -5,6 +5,7 @@ import { Paises } from './components/Paises';
 import Form from './components/Form';
 import { Nav } from './components/Nav';
 import CountryId from './components/CountryId';
+import Actividades from './components/Actividades';
 
 
 
@@ -28,6 +29,11 @@ function App() {
       <Route path ="/actividades">
       <Nav/>
       <Form/>
+      </Route>
+
+      <Route path ="/actividades-creadas">
+        <Nav/>
+      <Actividades/>
       </Route>
       </BrowserRouter>
 

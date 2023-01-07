@@ -61,7 +61,7 @@ const CountryId = () => {
             <h3  className="actividades-disponibles">No se encontraron actividades</h3>
             
           )}
-          {console.log(countryDetail.activities)}
+    
         </div>
         </div>
         </div>

@@ -3,6 +3,7 @@ import { postActivity, getNameCountries, getActivities } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { SmallCountry } from "./SmallCountry";
 import '../styles/Form.css'
+import { Actividad } from "./Actividad";
 
 
 const Form = () => {
@@ -20,7 +21,14 @@ const Form = () => {
       dispatch(getActivities());
   },[dispatch])
 
-  const filteredC = countries.slice(currentPage, currentPage + 5);
+  const filteredC = countries.slice(currentPage, currentPage + 7);
+  
+  const [error, setError] = useState({
+      nombre: "Minimo 3 letras",
+      dificultad: "Minimo 1",
+      duracion:"Minimo 1",
+      temporada:"Campo obligatorio"
+  })
 
   const [dataForm, setDataForm] = useState({
     nombre: "",
@@ -37,18 +45,52 @@ const Form = () => {
       duracion: 0,
       temporada: "",
       countryId: [],
+
     });
+
+    setError({
+      nombre: "Minimo 3 letras",
+      dificultad: "Minimo 1",
+      duracion:"Minimo 1",
+      temporada:"Campo obligatorio"
+    })
 
     setInputName("");
   };
 
   const submitInputName = (e) => {
     e.preventDefault();
+
+    
+
     setInputName(e.target.value);
   };
 
   const setDataHandler = (e) => {
     e.preventDefault();
+
+    if([e.target.name] !== "dificultad" || "duracion" || "temporada"){
+    if(e.target.value.length >= 3){
+      setError({
+        ...error,
+        [e.target.name]: "Correcto",
+      });
+  
+    }
+    {console.log(error.nombre)}
+    }
+
+    if([e.target.name] === "dificultad" || "duracion"){
+      if(e.target.value >= 1){
+        setError({
+          ...error,
+        [e.target.name]: "Correcto",
+        });
+      }
+      {console.log(e.target.name)}
+      
+    }
+
 
     setDataForm({
       ...dataForm,
@@ -56,16 +98,24 @@ const Form = () => {
     });
   };
 
+
+
+  
+
   const setIdHandler = (e) => {
     e.preventDefault();
+
+    
 
     setDataForm({
       ...dataForm,
       countryId: dataForm.countryId.concat(e.target.value),
     });
-    {console.log(e.target.value)}
+    
     alert("Pais agregado");
   };
+
+
 
   useEffect(() => {
     dispatch(getNameCountries(inputName));
@@ -88,6 +138,8 @@ const Form = () => {
     } else {
       return alert(" A tu actividad le faltan detalles");
     }
+
+
   };
 
   return (
@@ -104,14 +156,24 @@ const Form = () => {
               autocomplete="off"
               placeholder="Buscá el pais"
               onChange={submitInputName}
-    
+             
             />
+            {dataForm.countryId.length === 0 ?
+            <div>
+              Campo obligatorio
+            </div>
+            : 
+            <div>
+              Correcto 
+            </div>
+            }
           </div>
 
 
           <div className="nombre">
           <label className="titulo-form">Nombre</label>
             <input
+              id="nombre-actividad"
               className="input-form"
               type="text"
               autocomplete="off"
@@ -119,24 +181,48 @@ const Form = () => {
               name="nombre"
               value={dataForm.name}
               onChange={setDataHandler}
+              required minLength="4" maxLength="10"
             />
+            {
+              error.nombre !== "" ? 
+
+            <div>
+              { error.nombre}
+            </div>
+            :
+              <div>
+                { error.nombre}
+              </div>
+
+            }    
+            
           </div>
+          
 
           <div className="nombre">
             <label className="titulo-form">Seleccionar dificultad</label>
-            <select
+            <input
+        
              className="input-form"
               name="dificultad"
               value={dataForm.dificultad}
               id="dificultad"
               onChange={setDataHandler}
-            >
-              <option className="input-form" value={1}>1</option>
-              <option className="input-form" value={2}>2</option>
-              <option className="input-form" value={3}>3</option>
-              <option className="input-form" value={4}>4</option>
-              <option className="input-form" value={5}>5</option>
-            </select>
+              min="1" max="5"
+              type="number"
+            />
+
+            {
+              error.dificultad.length > 1  ? 
+                <div>
+                  {error.dificultad}
+                </div>
+                : 
+                <div>
+                {error.dificultad}
+              </div>
+
+            } 
           </div>
 
 
@@ -144,38 +230,29 @@ const Form = () => {
 
           <div className="nombre">
             <label className="titulo-form">Duración en horas</label>
-            <select
+            <input
              className="input-form"
               name="duracion"
               value={dataForm.duracion}
               id="duracion"
               onChange={setDataHandler}
-            >
-              <option className="input-form" value={1}>1</option>
-              <option className="input-form" value={2}>2</option>
-              <option className="input-form" value={3}>3</option>
-              <option className="input-form" value={4}>4</option>
-              <option className="input-form" value={5}>5</option>
-              <option className="input-form" value={6}>6</option>
-              <option className="input-form" value={7}>7</option>
-              <option className="input-form" value={8}>8</option>
-              <option className="input-form" value={9}>9</option>
-              <option className="input-form" value={10}>10</option>
-              <option className="input-form" value={11}>11</option>
-              <option className="input-form" value={12}>12</option>
-              <option className="input-form" value={13}>13</option>
-              <option className="input-form" value={14}>14</option>
-              <option className="input-form" value={15}>15</option>
-              <option className="input-form" value={16}>16</option>
-              <option className="input-form" value={17}>17</option>
-              <option className="input-form" value={18}>18</option>
-              <option className="input-form" value={19}>19</option>
-              <option className="input-form" value={20}>20</option>
-              <option className="input-form" value={21}>21</option>
-              <option className="input-form" value={22}>22</option>
-              <option className="input-form" value={23}>23</option>
-              <option className="input-form" value={24}>24</option>
-            </select>
+              min="1" max="24"
+              type="number"
+    
+            />
+
+            {
+              error.duracion.length > 1  ? 
+                <div>
+                  {error.duracion}
+                </div>
+                : 
+                <div>
+                {error.duracion}
+              </div>
+
+            } 
+          
           </div>
 
           <div className="nombre">
@@ -186,23 +263,42 @@ const Form = () => {
               value={dataForm.temporada}
               id="temporada"
               onChange={setDataHandler}
+              required
+              pattern="[Oo]toño|[Pp]rimavera|[Vv]erano|[Ii]nvierno"    
             >
-              <option className="input-form" value="Otoño">Otoño</option>
-              <option className="input-form" value="Primavera">Primavera</option>
-              <option className="input-form" value="Verano">Verano</option>
-              <option className="input-form" value="Invierno">Invierno</option>
+            <option value="Otoño">Otoño</option>
+              <option value="Invierno">Inviero</option>
+              <option value="Primavera">Primavera</option>
+              <option value="Verano">Verano</option>
             </select>
+
+          {
+              error.temporada !== "" ? 
+
+            <div>
+              { error.temporada}
+            </div>
+            :
+              <div>
+                { error.temporada}
+              </div>
+
+            }    
           </div>
+
           <div>
             <input className="input-form-boton" type="submit" value="Agregar actividad" />
           </div>
         
-          
+        
         </form>
       </div>
 
+<div className="conteiner-form-elegir">
      <div className="paises-elegir">
-        {filteredC.length < 30
+        {
+        dataForm.countryId.length === 0 &&
+        filteredC.length < 30
           ? filteredC.map((c) => (
               <div>
                 <div className="smallcountry">
@@ -223,11 +319,44 @@ const Form = () => {
              
             ) )
            
-          : console.log("ups")}
+          : console.log("...")}
 
           
       
       </div>
+
+      <div className='actividad'>
+        <h1 className="actividades-disponibles" style={{color:"white"}}>Actividad</h1>
+          { dataForm ? 
+            
+            <Actividad
+            nombre={dataForm.nombre}
+            duracion={dataForm.duracion}
+            dificultad={dataForm.dificultad}
+            temporada={dataForm.temporada}
+            
+      
+            />
+             : (
+            <h3  className="actividades-disponibles">No se encontraron actividades</h3>
+            
+          )}
+          <div className="texto-country-id" style={{color:"white"}}><div>Pais:</div><div style={{color:"white"}}>
+          { dataForm.countryId?.length > 0 ? (
+            dataForm.countryId?.map((pais) =>
+            <div>
+           {pais}
+            </div>  
+            )) : (
+            <div className="texto-country-id">Sin pais agregado</div>
+            
+          )}
+          
+          </div></div>
+        </div>
+
+  </div>    
+
     </div>
   );
 };

@@ -11,7 +11,7 @@ export const SmallCountry = ({nombre, bandera}) => {
         <div >
             <div className='card-small'>
                  
-                <img src={bandera} className='img-card'/>
+                <img src={bandera} alt={nombre} className='img-card'/>
                 <p >{nombre}</p>
         
 

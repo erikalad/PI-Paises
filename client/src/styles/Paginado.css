@@ -5,8 +5,8 @@ ul{
 .paginado-clase{
     display: flex;
     flex-direction: row;
-    justify-content: center;
-
+    justify-content: flex-start;
+    margin-left: 55px;
    
 }
 
@@ -14,7 +14,8 @@ ul{
 
 .number{
     margin-left: 5px;
-    
+    align-items: center;
+    text-align: center;
 }
 
 .boton-paginado{
@@ -27,13 +28,16 @@ ul{
     margin-right: 5px;
     color:white;
     background-color: rgba(0, 0, 0, 0.413);
+    cursor: pointer;
 }
 
+.boton-paginado:hover{
+    transform: scale(1.1);
 
-@media (max-width: 800px) {
-    .paginado-conteiner{
-        width: 20px !important;
-        height: 50px !important;
-    }
+}
 
-}  
+.boton-paginado:active{
+    color: rgb(229, 255, 0);
+
+}
+

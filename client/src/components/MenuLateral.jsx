@@ -21,10 +21,6 @@ export function MenuLateral(){
     const[order, setOrder] = useState('');
 
 
-    const paginated = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    }
-
     const pageValidation = (currentPage) => {
         if(currentPage ===1) {
             return setCountriesPerPage(9);
@@ -50,7 +46,6 @@ export function MenuLateral(){
     }
 
 
-    
 
     function onClickRadioOrder(e){
         setOrder(e.target.value)
@@ -78,15 +73,24 @@ export function MenuLateral(){
     function handleInputChange(e) {
             e.preventDefault();
             setName(e.target.value);
-            console.log(name);
+            
     } 
     
-    function handleSubmit(e) {
+  /*   function handleSubmit(e) {
             e.preventDefault();
             setName(e.target.value);
-            console.log(name);
-            dispatch(getNameCountries(name)); //en el estado local name voy a ir guardando lo que vaya tipeando el usuario
-        }
+            
+            dispatch(getNameCountries(e.target.value)); //en el estado local name voy a ir guardando lo que vaya tipeando el usuario
+        } */
+
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            setName(e.target.value);
+          };
+
+        useEffect(() => {
+            dispatch(getNameCountries(name));
+          }, [name]);
 
 
     
@@ -102,9 +106,10 @@ export function MenuLateral(){
         <div className="menu-buscador-input">
             <p className="menu-title">Nombre del pais</p>
             <div>
-                <input className="menu-buscador" type = 'text' placeholder = 'Ingrese el pais que quiere buscar' onChange={handleInputChange} />            
+                <input className="menu-buscador"onClick = {(e) => handleSubmit(e)} type = 'text' placeholder = 'Ingrese el pais que quiere buscar' onChange={handleInputChange} />            
             </div>
-            <button className="boton-buscar-menu" onClick = {(e) => handleSubmit(e)}>BUSCAR</button>
+            
+            {/* {console.log(error.data)} */}
         <br></br>
        
         </div>
@@ -153,7 +158,8 @@ export function MenuLateral(){
                 <Paginado
             countriesPerPage = { countriesPerPage }
             allCountries = { allCountries.length }
-            paginated = { paginated }
+            currentPage = {currentPage}
+            setCurrentPage={setCurrentPage}
             /> 
     </div>
     </div>

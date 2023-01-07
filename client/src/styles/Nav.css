@@ -12,6 +12,7 @@
     font-weight: bold;
     font-size: 20px;
     color: white;
+    margin-left: 20px;
 }
 
 .nav-li{
@@ -42,45 +43,7 @@
 
 
 .home{
-    margin-left: 70rem;
+    margin-left: 60rem;
 }
 
 
-
-@media (max-width: 800px) {
-    .nav-entero{
-        display: flex;
-        flex-direction: row;
-        border:1px white solid;
-        width: 100%;
-        margin: 0px !important;
-    }
-  
-
-    .home{
-        margin-left: 0rem;
-    }
-    
-
-    .nav-a{
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-        align-items: center;
-        padding-left: 20px;
-        padding-right: 20px;
-        border: none;
-        border-radius: 20px;
-        background-color: white;
-        color: black;
-        font-size: 15px;
-        cursor: pointer;
-        height: 30px;
-        margin-bottom: 5px;
-    
-    }
-
-    .nav-countriesApp{
-        padding-left: 20px;
-    }
-  }

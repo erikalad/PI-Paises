@@ -6,6 +6,7 @@
     font-size: 25px;
     align-items: center;
     margin-left:100px;
+    color:white;
 }
 
 
@@ -16,4 +17,7 @@
     flex-direction: row;
     justify-content: space-between;
     font-size: 20px;
+
+    color:white;
 }
+
