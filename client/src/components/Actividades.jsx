@@ -7,15 +7,16 @@ import { getActivities } from "../actions";
 
 
 
+
 export default function Actividades() {
 
     const allActividades = useSelector((state) => state.activities);
     const dispatch = useDispatch();
+    
 
-
-    useEffect (()=>{
+   useEffect (()=>{
         dispatch(getActivities());
-    },[dispatch])
+    },[dispatch]) 
 
 
     return(
@@ -23,13 +24,20 @@ export default function Actividades() {
         <h1 className='agregar-actividad'>Actividades Creadas</h1>
         <div className='contenedor-actividades'>
           
-          { allActividades.map((c) => {
+          { allActividades.length > 0 ?
+          allActividades.map((c, index) => {
             return(
                 <div >
-                    <Actividad nombre={c.nombre} duracion={c.duracion} temporada={c.temporada} dificultad={c.dificultad} />
+                  
+                    <Actividad key={index} id={c.id} nombre={c.nombre} duracion={c.duracion} temporada={c.temporada} dificultad={c.dificultad} />
                 </div>
+
             )
-        })}
+        })
+    
+    : 
+    <div style={{color:"white",fontSize:"15px"}}>No hay actividades creadas</div>
+    }
         </div>
         </div>
     )

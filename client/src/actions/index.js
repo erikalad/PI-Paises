@@ -83,4 +83,47 @@ export function getCountryDetails (id) {
         console.log(error)
         }
     }
+       
+}
+
+export function getActivityDetails (id) {
+    return async function (dispatch) {
+        try {
+            var json = await axios.get('http://localhost:3001/activities/' + id);
+            return dispatch ({
+                type: 'GET_ACTIVITIES_DETAIL',
+                payload: json.data
+            })
+    } catch (error) {
+        console.log(error)
+        }
+    }  
+}
+/* 
+export function removeActividad(id) {
+    return async function (dispatch) {
+        try {
+            var json = await axios.delete('http://localhost:3001/activities:' + id, id);
+            return dispatch ({
+                type: "REMOVE_ACTIVIDAD",
+                payload : id
+            })
+    } catch (error) {
+        console.log(error)
+        }
+    }
+  } */
+
+  export const removeActividad = (id) => {
+    return async (dispatch) => {
+        try {
+            let deleted = await axios.delete(`http://localhost:3001/activities/${id}`, id);
+            dispatch({
+                type: "REMOVE_ACTIVIDAD",
+                payload: deleted.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

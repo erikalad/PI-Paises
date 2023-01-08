@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getAllCountries, getAllCountriesFromDb } = require('../controllers/countryControllers.js'); 
+const {  getAllCountriesFromDb } = require('../controllers/countryControllers.js'); 
 const { Op } = require('sequelize');
 const { Country, Activity } = require('../db.js');
 
@@ -118,8 +118,7 @@ router.post('/activity', async(req, res)=> {
         id: countryId,
       },
     });
-    // console.log(addAct)
-    // console.log(countrymatch)
+
   
     const resact = await valdidateact.addCountries(countrymatch);
   
@@ -127,19 +126,54 @@ router.post('/activity', async(req, res)=> {
 })
 
 router.get('/activities', async (req, res) => {
+
     Activity.findAll()
         .then((result) => res.json(result))
         .catch((error) => res.status(404).json('Error con la base de datos de actividades'))
+
 })
 
-/*
+/* router.delete('/activities:id', async (req, res) => {
+  let { id } = req.params
 
-router.get('/activity', async (req, res) => {
-    Activity.findAll()
-        .then((result) => res.json(result))
-        .catch((error) => res.status(404).json('Error con la base de datos de actividades'))
+  try{
+    let nombreActividad = await Activity.findByPk(id);
+    console.log(nombreActividad)
+   if(nombreActividad){ 
+      await nombreActividad.destroy();
+      res.send ("Actividad eliminada")
+   } else {
+      res.status(404).send({message: "Actividad no encontrada"})
+    } 
+  } catch(error){
+    res.send(error)
+  } */
+
+
+  router.delete('/activities:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await Activity.destroy({
+            where: {
+                id: id
+            }
+        })
+        res.status(200).send("Actividad eliminada");
+    } catch (error) {
+        next(error);
+    }
 })
-*/
+
+/* 
+   Activity.destroy({
+        where: {
+          nombre : nombre
+        }
+    }).then((result)=> res.json(result))
+    .catch((error) => res.status(404).json('La actividad no se eliminó')) 
+    
+})*/
+
 
 module.exports = router;
 

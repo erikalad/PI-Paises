@@ -3,6 +3,7 @@ const initialState = {
     allCountries : [],
     activities : [],
     details: []
+    
 }
 
 
@@ -90,8 +91,23 @@ function rootReducer (state = initialState, action) {
                 details: action.payload
             }
 
-            default: return state;
+            
+
+            case "REMOVE_ACTIVIDAD" :
+                return {
+                  ...state,
+                  activities: state.activities.filter((actividad) => actividad.id !== action.payload)
+                }
+
+                default: return state;
+
+                case 'GET_ACTIVITIES_DETAILS':
+                    return {
+                        ...state,
+                        activities: state.activities.filter((actividad) => actividad.id === action.payload)
+                    }
     }
+
 }
 
   export default rootReducer;
