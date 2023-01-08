@@ -6,7 +6,7 @@ import Form from './components/Form';
 import { Nav } from './components/Nav';
 import CountryId from './components/CountryId';
 import Actividades from './components/Actividades';
-import { Actividad } from './components/Actividad';
+
 
 
 

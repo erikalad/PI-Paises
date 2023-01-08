@@ -181,7 +181,7 @@ const Form = () => {
               name="nombre"
               value={dataForm.name}
               onChange={setDataHandler}
-              required minLength="4" maxLength="10"
+              required minLength="4" maxLength="20"
             />
             {
               error.nombre !== "" ? 
