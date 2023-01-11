@@ -24,7 +24,7 @@ const Form = () => {
   const filteredC = countries.slice(currentPage, currentPage + 7);
   
   const [error, setError] = useState({
-      nombre: "Minimo 3 letras",
+      nombre: "Minimo 4 letras",
       dificultad: "Minimo 1",
       duracion:"Minimo 1",
       temporada:"Campo obligatorio"
@@ -49,7 +49,7 @@ const Form = () => {
     });
 
     setError({
-      nombre: "Minimo 3 letras",
+      nombre: "Minimo 4 letras",
       dificultad: "Minimo 1",
       duracion:"Minimo 1",
       temporada:"Campo obligatorio"
@@ -77,7 +77,6 @@ const Form = () => {
       });
   
     }
-    {console.log(error.nombre)}
     }
 
     if([e.target.name] === "dificultad" || "duracion"){
@@ -87,7 +86,7 @@ const Form = () => {
         [e.target.name]: "Correcto",
         });
       }
-      {console.log(e.target.name)}
+
       
     }
 
@@ -334,7 +333,7 @@ const Form = () => {
             duracion={dataForm.duracion}
             dificultad={dataForm.dificultad}
             temporada={dataForm.temporada}
-            
+            paises={dataForm.countryId}
       
             />
              : (

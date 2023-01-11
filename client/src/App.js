@@ -16,12 +16,15 @@ function App() {
     
     <div className="App">
       <BrowserRouter>
-      <Route exact path="/">
+
+      <Route exact path="/" >
       <Home/>
       </Route>
+
       <Route exact path="/paises">
       <Paises/>
       </Route>
+
       <Route exact path="/countries/:id">
       <Nav/>
       <CountryId/>
@@ -33,7 +36,7 @@ function App() {
       </Route>
 
       <Route path ="/actividades-creadas">
-        <Nav/>
+      <Nav/>
       <Actividades/>
       </Route>
 
